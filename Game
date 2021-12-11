@@ -1,0 +1,64 @@
+import keyboard
+import time
+import random
+pole = [['0', '0', '0', '0', '0'], ['0', '0', '0', '0', '0'], ['0', '0', '0', '0', '0'], ['0', '0', '0', '0', '0'], ['0', '0', '0', '0', '0']]
+y = 4
+x = 0
+y1 = 0
+x1 = random.randint(0, 4)
+y2 = 0
+x2 = random.randint(0, 4)
+while x2 == x1:
+    x2 = random.randint(0, 4)
+Good = 0
+Death = False
+while True:
+    if Good >= 20:
+        break
+    pole[y][x] = '*'
+    pole[y1][x1] = '+'
+    pole[y2][x2] = '@'
+    for i in pole:
+        for j in i:
+            print(j, end=' ')
+        print()
+    print('Good =', Good)
+    pole[y][x] = '0'
+    pole[y1][x1] = '0'
+    pole[y2][x2] = '0'
+    for i in range(10):
+        time.sleep(0.1)
+        if keyboard.is_pressed('right') and x + 1 <= 4:
+            x += 1
+        elif keyboard.is_pressed('left') and x - 1 >= 0:
+            x -= 1
+        elif keyboard.is_pressed('up') and y - 1 >= 0:
+            y -= 1
+        elif keyboard.is_pressed('down') and y + 1 <= 4:
+            y += 1
+    if y == y1 and x == x1:
+        Good += 1
+    if y == y2 and x == x2:
+        Death = True
+        break
+    if y1 + 1 > 4 or (y == y1 and x == x1):
+        y1 = 0
+        x1 = ''
+    elif y1 + 1 <= 4:
+        y1 += 1
+    if y2 + 1 > 4:
+        y2 = 0
+        x2 = ''
+        
+    elif y2 + 1 <= 4:
+        y2 += 1
+    if x1 == '':
+        x1 = random.randint(0, 4)
+    if x2 == '':
+        x2 = random.randint(0, 4)
+        while x2 == x1:
+            x2 = random.randint(0, 4)
+if Death:
+    print('YOU DIED!')
+else:
+    print('YOU WIN!')
