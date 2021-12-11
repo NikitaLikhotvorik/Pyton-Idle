@@ -1,0 +1,86 @@
+import random
+pole = [['X', 'X', 'X', 'X', 'X'], ['X', 'X', 'X', 'X', 'X'], ['X', 'X', 'X', 'X', 'X'], ['X', 'X', 'X', 'X', 'X'], ['X', 'X', 'X', 'X', 'X']]
+pole_igry = [['X', 'X', 'X', 'X', 'X'], ['X', 'X', 'X', 'X', 'X'], ['X', 'X', 'X', 'X', 'X'], ['X', 'X', 'X', 'X', 'X'], ['X', 'X', 'X', 'X', 'X']]
+number = 0
+something = 0
+for i in range(5):
+    x = random.randint(0, 4)
+    y = random.randint(0, 4)
+    while pole[y][x] == '*':
+        x = random.randint(0, 4)
+        y = random.randint(0, 4)
+    pole[y][x] = '*'
+for i in pole:
+    for j in i:
+        if pole[pole.index(i)][i.index(j)] == '*':
+            continue
+        if pole.index(i) - 1 >= 0 and pole[pole.index(i) - 1][i.index(j)] == '*':
+            number += 1
+        if pole.index(i) + 1 <= 4 and pole[pole.index(i) + 1][i.index(j)] == '*':
+            number += 1
+        if i.index(j) - 1 >= 0 and pole[pole.index(i)][i.index(j) - 1] == '*':
+            number += 1
+        if i.index(j) + 1 <= 4 and pole[pole.index(i)][i.index(j) + 1] == '*':
+            number += 1
+        if i.index(j) + 1 <= 4 and pole.index(i) + 1 <= 4 and pole[pole.index(i) + 1][i.index(j) + 1] == '*':
+            number += 1
+        if i.index(j) - 1 >= 0 and pole.index(i) - 1 >= 0 and pole[pole.index(i) - 1][i.index(j) - 1] == '*':
+            number += 1
+        if i.index(j) + 1 <= 4 and pole.index(i) - 1 >= 0 and pole[pole.index(i) - 1][i.index(j) + 1] == '*':
+            number += 1
+        if i.index(j) - 1 >= 0 and pole.index(i) + 1 <= 4 and pole[pole.index(i) + 1][i.index(j) - 1] == '*':
+            number += 1
+        pole[pole.index(i)][i.index(j)] = str(number)
+        number = 0
+number = 0
+print("Выберете локацию начальную")
+y = int(input('Введите строку: ')) - 1
+x = int(input('Введите столбец: ')) - 1
+for i in range(2):
+    something += 1
+    if pole[y][x] != '*':
+        pole_igry[y][x] = pole[y][x]
+    if y - 1 >= 0 and pole[y - 1][x] != '*':
+        pole_igry[y - 1][x] = pole[y - 1][x]
+    if y + 1 <= 4 and pole[y + 1][x] != '*':
+        pole_igry[y + 1][x] = pole[y + 1][x]
+    if x - 1 >= 0 and pole[y][x - 1] != '*':
+        pole_igry[y][x - 1] = pole[y][x - 1]
+    if x + 1 <= 4 and y + 1 <= 4 and pole[y + 1][x + 1] != '*':
+        pole_igry[y + 1][x + 1] = pole[y + 1][x + 1]
+    if x - 1 >= 0 and y - 1 >= 0 and pole[y - 1][x - 1] != '*':
+        pole_igry[y - 1][x - 1] = pole[y - 1][x - 1]
+    if x - 1 >= 0 and y - 1 >= 0 and pole[y - 1][x - 1] != '*':
+        pole_igry[y - 1][x - 1] = pole[y - 1][x - 1]
+    if x - 1 >= 0 and y + 1 <= 4 and pole[y + 1][x - 1] != '*':
+        pole_igry[y + 1][x - 1] = pole[y + 1][x - 1]
+    if x + 1 <= 4 and y - 1 >= 0 and pole[y - 1][x + 1] != '*':
+        pole_igry[y - 1][x + 1] = pole[y - 1][x + 1]
+while True:
+    for i in pole_igry:
+        for j in i:
+            print(j, end=' ')
+        print()
+    y = int(input('Введите строку: ')) - 1
+    x = int(input('Введите столбец: ')) - 1
+    if pole_igry[y][x] != 'X':
+        print('Вы уже копали в этом месте')
+        y = int(input('Введите строку: ')) - 1
+        x = int(input('Введите столбец: ')) - 1
+    if pole_igry[y][x] == 'X' and pole[y][x] != '*':
+        pole_igry[y][x] = pole[y][x]
+        number += 1
+    elif pole[y][x] == '*':
+        print('YOU LOSE! YOUR SCORE:', number)
+        for i in pole:
+            for j in i:
+                print(j, end=' ')
+            print()
+        break
+    if number == 20:
+        print('YOU WIN!')
+        for i in pole_igry:
+            for j in i:
+                print(j, end=' ')
+            print()
+        break
