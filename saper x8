@@ -48,13 +48,12 @@ while y not in Spisok:
 while x not in Spisok:
     x = int(input('Введите столбец: ')) - 1
 for i in range(a // 2):
-    something += 1
     if pole[y][x] != '*':
         pole_igry[y][x] = pole[y][x]
-    if y - 1 >= 0 and pole[y - 1][x] != '*':
+    if y - 1 - something >= 0 and pole[y - 1][x] != '*':
         pole_igry[y - 1][x] = pole[y - 1][x]
-    if y + 1 <= a and pole[y + 1][x] != '*':
-        pole_igry[y + 1][x] = pole[y + 1][x]
+    if y + 1 + something <= a and pole[y + 1][x] != '*':
+        pole_igry[y + 1 + something][x] = pole[y + 1][x]
     if x - 1 >= 0 and pole[y][x - 1] != '*':
         pole_igry[y][x - 1] = pole[y][x - 1]
     if x + 1 <= a and y + 1 <= a and pole[y + 1][x + 1] != '*':
@@ -67,6 +66,7 @@ for i in range(a // 2):
         pole_igry[y + 1][x - 1] = pole[y + 1][x - 1]
     if x + 1 <= a and y - 1 >= 0 and pole[y - 1][x + 1] != '*':
         pole_igry[y - 1][x + 1] = pole[y - 1][x + 1]
+     something += 1   
 while True:
     for i in pole_igry:
         for j in i:
@@ -92,7 +92,7 @@ while True:
                 print(j, end=' ')
             print()
         break
-    if number == 20:
+    if number == a ** 2 - a:
         print('YOU WIN!')
         for i in pole_igry:
             for j in i:
