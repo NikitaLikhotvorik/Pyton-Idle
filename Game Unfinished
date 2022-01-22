@@ -1,0 +1,57 @@
+import keyboard
+import time
+import random
+pole = [['|', '0', '0', '0', '|'], ['|', '0', '|', '0', '|'], ['-', '0', '0', '0', '-'], ['0', '0', '|', '0', '0'], ['0', '|', '0', '|', '0']]
+y = 4
+x = 0
+x1 = 4
+y1 = 4
+winx = 4
+winy = 0
+def pole_print(pole):
+    for i in pole:
+        for j in i:
+            print(j, end=' ')
+        print()
+    print()
+def game(x, y, pole, winx, winy, x1, y1):
+    while x1 != x or y != y1:   
+        pole_print(pole)
+        x, y, x1, y1 = move(x, y, pole, y1, x1)
+        pole[y][x] = '*'
+        pole[y1][x1] = '*'
+    pole_print(pole)
+    return None
+    result = True
+    return result
+def move(x, y, pole, y1, x1):
+    for i in range(10):
+        time.sleep(0.8)
+        pole[y][x] = '0'
+        if keyboard.is_pressed('right') and x + 1 <= 4 and pole[y][x + 1] != '|' and pole[y][x + 1] != '-':
+            x += 1
+            if x1 + 1 <= 4 and pole[y1][x1 + 1] != '|' and pole[y1][x1 + 1] != '-':
+                x1 += 1
+        elif keyboard.is_pressed('left') and x - 1 >= 0 and pole[y][x - 1] != '|' and pole[y][x - 1] != '-':
+            x -= 1
+            if x1 - 1 >= 0 and pole[y1][x1 - 1] != '|' and pole[y1][x1 - 1] != '-':
+                x -= 1
+        elif keyboard.is_pressed('up') and y - 1 >= 0 and pole[y - 1][x] != '-' and pole[y - 1][x] != '|':
+            y -= 1
+            if y1 - 1 >= 0 and pole[y1 - 1][x1] != '-' and pole[y1 - 1][x1] != '|':
+                y1 -= 1
+        elif keyboard.is_pressed('down') and y + 1 <= 4 and pole[y + 1][x] != '-' and pole[y + 1][x] != '|':
+            y += 1
+            if y1 + 1 <= 4 and pole[y1 + 1][x1] != '-' and pole[y1 + 1][x1] != '|':
+                y1 += 1
+        return([x, y, x1, y1])
+'''def level_count(pole, x1, y1):
+    game(x, y, pole, winx, winy, x1, y1)
+    pole = [ ['=', '0', '0', '|', '0'], ['0', '|', '0', '|', '0'], ['0', '|', '0', '|', '0'], ['-', '-', '0', '|', '0'], ['0', '0', '0', '0', '0']]
+    game(x, y, pole, winx, winy, x1, y1)
+    y1, x1 = 4, 4
+    pole = [['|', '0', '0', '0', '|'], ['|', '0', '|', '0', '|'], ['-', '0', '0', '0', '-'], ['0', '0', '|', '0', '0'], ['0', '|', '0', '|', '0']]
+    game(x, y, pole, winx, winy, x1, y1)
+    return None
+level_count(pole, x1, y1)'''
+game(x, y, pole, winx, winy, x1, y1)
